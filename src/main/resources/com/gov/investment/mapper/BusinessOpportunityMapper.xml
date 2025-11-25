@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gov.investment.mapper.BusinessOpportunityMapper">
+
+    <resultMap id="BusinessOpportunityResultMap" type="com.gov.investment.model.BusinessOpportunity">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="status" property="status"/>
+        <result column="estimated_amount" property="estimatedAmount"/>
+        <result column="description" property="description"/>
+        <result column="remark" property="remark"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.gov.investment.model.BusinessOpportunity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO business_opportunity (name, type, supplier_id, status, estimated_amount, description, remark, create_time, update_time)
+        VALUES (#{name}, #{type}, #{supplierId}, #{status}, #{estimatedAmount}, #{description}, #{remark}, #{createTime}, #{updateTime})
+    </insert>
+
+    <update id="update" parameterType="com.gov.investment.model.BusinessOpportunity">
+        UPDATE business_opportunity
+        SET name = #{name}, type = #{type}, supplier_id = #{supplierId}, status = #{status},
+            estimated_amount = #{estimatedAmount}, description = #{description}, remark = #{remark}, update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM business_opportunity WHERE id = #{id}
+    </delete>
+
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BusinessOpportunityResultMap">
+        SELECT * FROM business_opportunity WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BusinessOpportunityResultMap">
+        SELECT * FROM business_opportunity
+    </select>
+
+    <select id="selectByCondition" resultMap="BusinessOpportunityResultMap">
+        SELECT * FROM business_opportunity
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        <if test="supplierId != null">
+            AND supplier_id = #{supplierId}
+        </if>
+    </select>
+</mapper>
