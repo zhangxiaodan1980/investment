@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import com.gov.investment.validation.AllowedStatus;
 
 @Data
 public class Supplier {
@@ -34,6 +35,7 @@ public class Supplier {
     @Size(max = 500, message = "Remarks cannot exceed 500 characters")
     private String remarks;
     
+    @AllowedStatus(message = "Invalid status value. Allowed values: Active, Inactive")
     private String status;
     
     private String createTime;

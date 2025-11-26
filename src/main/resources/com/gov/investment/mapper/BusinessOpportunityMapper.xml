@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gov.investment.mapper.BusinessOpportunityMapper">
+    
+    <resultMap id="businessOpportunityResultMap" type="com.gov.investment.entity.BusinessOpportunity">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="expectedRevenue" column="expected_revenue" />
+        <result property="stage" column="stage" />
+        <result property="customerName" column="customer_name" />
+        <result property="customerContact" column="customer_contact" />
+        <result property="customerAddress" column="customer_address" />
+        <result property="remarks" column="remarks" />
+        <result property="status" column="status" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+    </resultMap>
+    
+    <select id="selectAllBusinessOpportunities" resultMap="businessOpportunityResultMap">
+        SELECT * FROM business_opportunity
+    </select>
+    
+    <select id="selectBusinessOpportunityById" parameterType="java.lang.Long" resultMap="businessOpportunityResultMap">
+        SELECT * FROM business_opportunity WHERE id = #{id}
+    </select>
+    
+    <insert id="insert" parameterType="com.gov.investment.entity.BusinessOpportunity">
+        INSERT INTO business_opportunity (name, description, expected_revenue, stage, customer_name, customer_contact, customer_address, remarks, status, create_time, update_time)
+        VALUES (#{name}, #{description}, #{expectedRevenue}, #{stage}, #{customerName}, #{customerContact}, #{customerAddress}, #{remarks}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+    
+    <update id="update" parameterType="com.gov.investment.entity.BusinessOpportunity">
+        UPDATE business_opportunity
+        SET name = #{name},
+            description = #{description},
+            expected_revenue = #{expectedRevenue},
+            stage = #{stage},
+            customer_name = #{customerName},
+            customer_contact = #{customerContact},
+            customer_address = #{customerAddress},
+            remarks = #{remarks},
+            status = #{status},
+            update_time = #{updateTime}
+        WHERE id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM business_opportunity WHERE id = #{id}
+    </delete>
+    
+</mapper>

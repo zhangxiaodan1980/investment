@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import com.gov.investment.validation.AllowedStage;
 import java.math.BigDecimal;
 
 @Data
@@ -26,6 +27,7 @@ public class BusinessOpportunity {
     
     @NotBlank(message = "Stage cannot be blank")
     @Size(max = 50, message = "Stage cannot exceed 50 characters")
+    @AllowedStage(message = "Invalid stage value. Allowed values: Prospect, Qualified, Proposal, Negotiation, Closed Won, Closed Lost")
     private String stage;
     
     @NotBlank(message = "Customer name cannot be blank")
@@ -42,6 +44,7 @@ public class BusinessOpportunity {
     @Size(max = 500, message = "Remarks cannot exceed 500 characters")
     private String remarks;
     
+    @AllowedStatus(message = "Invalid status value. Allowed values: Active, Inactive")
     private String status;
     
     private String createTime;
