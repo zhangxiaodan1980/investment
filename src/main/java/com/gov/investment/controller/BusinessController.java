@@ -1,9 +1,12 @@
 package com.gov.investment.controller;
 
+import com.gov.investment.entity.BusinessOpportunity;
+import com.gov.investment.entity.Supplier;
 import com.gov.investment.model.LoginRequest;
 import com.gov.investment.model.UserInfo;
 import com.gov.investment.service.UserService;
 import com.gov.investment.util.JwtUtils;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +34,19 @@ public class BusinessController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getInfo(){
         return ResponseEntity.ok("OK");
+    }
+
+    @PostMapping("/supplier")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createSupplier(@Valid @RequestBody Supplier supplier){
+        // Here you would typically save the supplier to the database
+        return ResponseEntity.ok("Supplier created successfully");
+    }
+
+    @PostMapping("/opportunity")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createBusinessOpportunity(@Valid @RequestBody BusinessOpportunity opportunity){
+        // Here you would typically save the business opportunity to the database
+        return ResponseEntity.ok("Business opportunity created successfully");
     }
 }
